@@ -1,7 +1,7 @@
 from youtubesearchpython import *
 import yt_dlp
 import json,csv,os
-import request
+import requests
 
 
 
