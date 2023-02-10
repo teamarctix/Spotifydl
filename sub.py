@@ -2,26 +2,9 @@ from youtubesearchpython import *
 import yt_dlp
 import json,csv,os
 import requests
+from refreshimport *
 
 
-
-
-
-code = "AQA3nuVGFliJ9tzf22UK4xDJZFIJE8x69BRSQNPOY5j4Dftre_YQg4X7uI0eoCoJtiKrLGUoXXJ99msYdqnutybrZ4eC9MmA7VoV0KWR5PTuucYOTQOQdgreGS6ZhprgNwg"
-
-token_headers = {
-    "Authorization": "Basic " + encoded_credentials,
-    "Content-Type": "application/x-www-form-urlencoded"
-}
-
-
-
-
-token_data = {
-    "grant_type": "refresh_token",
-    "refresh_token": code,
-    "redirect_uri": "http://localhost:7777/callback"
-}
 
 
 def retk():
