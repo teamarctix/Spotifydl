@@ -94,11 +94,10 @@ async def answer(client, call):
                         f'<b>├  Total No Of Songs: </b>{total}\n'\
                         f'<b>╰ Updated Time: </b>{crtda}\n\n'
           os.chdir(df)
-          #os.system("spotdl "+playlistlink)
+          os.system("spotdl "+playlistlink)
           await app.send_photo(chat,photo=img,caption=stats)
           for filename in os.listdir():
               if filename.endswith(".mp3"):
-                print(filename)
                 await app.send_audio(chat, audio=name,caption=name)
 
 
@@ -127,12 +126,12 @@ async def start_command(client,message):
                            f'<b>├  Total No Of Songs: </b>{total}\n'\
                            f'<b>╰ Updated Time: </b>{crtda}\n\n'
                os.chdir(df)
-               #os.system("spotdl "+id[0])
+               os.system("spotdl "+id[0])
                await app.send_photo(channel_id,photo=img,caption=stats)
                for filename in os.listdir():
                   if filename.endswith(".mp3"):
-                   print(filename)
-                  #await app.send_audio(channel_id, audio=name,caption=name)
+                   #print(filename)
+                   await app.send_audio(channel_id, audio=name,caption=name)
 
 
 
