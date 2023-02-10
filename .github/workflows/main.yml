@@ -7,9 +7,9 @@ jobs:
   run-sync-service:
     runs-on: ubuntu-latest
     steps:
-      - name: Pyrogram
+      - name: FFMPEG 
         run: |
-          pip install pyrogram 
+          sudo apt-get install ffmpeg 
       - name: Checkout repository code
         uses: actions/checkout@v2
       - name: Cd Into Repo
