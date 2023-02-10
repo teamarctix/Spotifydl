@@ -94,7 +94,7 @@ async def answer(client, call):
                         f'<b>├  Total No Of Songs: </b>{total}\n'\
                         f'<b>╰ Updated Time: </b>{crtda}\n\n'
           os.chdir(df)
-          os.system("spotdl "+playlistlink)
+          os.system("spotdl https://open.spotify.com/playlist/"+playlist_id)
           await app.send_photo(chat,photo=img,caption=stats)
           for filename in os.listdir():
               if filename.endswith(".mp3"):
