@@ -43,9 +43,15 @@ async def start_command(client,message):
                  info =  dytdl(link[4:])
                  for name in os.listdir():
                      if info[0] in name:
-                      await app.send_document(chat_id, document=name,caption=name )
+                       if name.endswith("mp4"):
+                         await app.send_video(chat_id, video=name,caption=name )
+                       else:
+                         await app.send_document(chat_id, document=name,caption=name )
                       write(link[4:],name)
-                      os.system("rm '"+name+"'")
+                      if name.endswith("py") or name.endswith("csv"):
+                       print("*****")
+                      else:
+                        os.system("rm '"+name+"'")
              
     else:
            await app.send_message(channel_id,"Link Not Vaild!!!!")
@@ -94,11 +100,11 @@ async def answer(client, call):
                         f'<b>├  Total No Of Songs: </b>{total}\n'\
                         f'<b>╰ Updated Time: </b>{crtda}\n\n'
           os.chdir(df)
-          os.system("spotdl https://open.spotify.com/playlist/"+playlist_id)
           await app.send_photo(chat,photo=img,caption=stats)
+          os.system("spotdl https://open.spotify.com/playlist/"+playlist_id)
           for filename in os.listdir():
               if filename.endswith(".mp3"):
-                await app.send_audio(chat, audio=name,caption=name)
+                await app.send_audio(chat, audio=filename,caption=filename)
 
 
 
@@ -126,12 +132,12 @@ async def start_command(client,message):
                            f'<b>├  Total No Of Songs: </b>{total}\n'\
                            f'<b>╰ Updated Time: </b>{crtda}\n\n'
                os.chdir(df)
-               os.system("spotdl "+id[0])
                await app.send_photo(channel_id,photo=img,caption=stats)
+               os.system("spotdl "+id[0])
                for filename in os.listdir():
                   if filename.endswith(".mp3"):
                    #print(filename)
-                   await app.send_audio(channel_id, audio=name,caption=name)
+                   await app.send_audio(channel_id, audio=filename,caption=filename)
 
 
 
@@ -153,7 +159,8 @@ async def start_command(client,message):
 
 @app.on_message(filters.command("list"))
 async def start_command(client,message):
-         cdid= message.chat.id
+        cdid= message.chat.id
+        if "playlist.csv" in os.litdir():
          pylnames =[]
          for  pyname in pread():
              pylnames.append([InlineKeyboardButton(pyname[1], callback_data =str(pyname[2]))]) 
@@ -164,7 +171,10 @@ async def start_command(client,message):
          msgid =list.id
          chat = list.chat.id
          await app.delete_messages(chat,msgid)
-       
+       else:
+          await app.send_message(
+            cdid,"Playlist Can't be Found!!\n\
+                  Try Adding A Playlist\",)
 
 
 
