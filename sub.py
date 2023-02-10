@@ -6,14 +6,6 @@ from refreshimport *
 
 
 
-
-def retk():
-     r = requests.post("https://accounts.spotify.com/api/token", data=token_data, headers=token_headers)
-     token = r.json()["access_token"]
-     return token
-
-
-
 token=retk()
 
 
