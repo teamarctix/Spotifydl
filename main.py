@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 import requests
 from sub import *
+from db import *
 import os
 from time import time
 import time
@@ -135,9 +136,13 @@ async def main():
                os.system("spotdl "+id[0])
                for filename in os.listdir():
                   if filename.endswith(".mp3"):
-                   #print(filename)
-                   await app.send_audio(channel_id, audio=filename,caption=filename)
-
+                    for urls in read_db():
+                      if urls==filename:
+                         break
+                    else:
+                       #print(filename)
+                       await app.send_audio(channel_id, audio=filename,caption=filename)
+                       insert_db(filename)
 
 
 
