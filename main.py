@@ -24,64 +24,6 @@ app = Client(
 
 
 
-taç@app.on_message(filters.command("dl"))
-async def start_command(client,message):
-    chat_id = message.chat.id
-    link = message.text
-    if link[4:].startswith("https") or link.startswith("http"):
-          if link.split( "/")[4] == "track" :
-  
-             ytlink = ytsq(link[4:])
-             ytdl(ytlink[1])
-      
-             for name in os.listdir():
-               if ytlink[0] in name: 
-                await app.send_audio(chat_id, audio=name,caption=name)
-                write(link[4:],name)
-                os.system("rm '"+name+"'")
-
-          else:
-                 info =  dytdl(link[4:])
-                 for name in os.listdir():
-                     if info[0] in name:
-                       if name.endswith("mp4"):
-                         await app.send_video(chat_id, video=name,caption=name )
-                       else:
-                         await app.send_document(chat_id, document=name,caption=name )
-                      write(link[4:],name)
-                      if name.endswith("py") or name.endswith("csv"):
-                       print("*****")
-                      else:
-                        os.system("rm '"+name+"'")
-             
-    else:
-           await app.send_message(channel_id,"Link Not Vaild!!!!")
-
-
-
-
-
-
-
-
-@app.on_message(filters.command("update"))
-async def start_command(client,message):
-         cdid= message.chat.id
-         button_list =[]
-         for each in pread():
-             button_list.append([InlineKeyboardButton(each[1], callback_data =str(each[2]))]) 
-             reply_markup=InlineKeyboardMarkup(button_list)
-         await app.send_message(
-            cdid,"Select The Required Playlist:",reply_markup=reply_markup)
-
-
-
-
-
-@app.on_callback_query()
-async def answer(client, call):
-
-
 
 async def main():
    async with app:
