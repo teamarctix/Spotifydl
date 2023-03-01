@@ -9,8 +9,7 @@ jobs:
     steps:
       - name: Install RClone
         run: |
-          curl https://rclone.org/install.sh | sudo bash
-          rclone help
+           apt install rclone
       - name: FFMPEG 
         run: |
           sudo apt-get install ffmpeg 
