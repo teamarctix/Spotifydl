@@ -35,7 +35,7 @@ def create_table():
 
 def insert_db(lnk):
 
-    query = "INSERT INTO REDLinks (url) VALUES('{}')".format(lnk)
+    query = "INSERT INTO Music (url) VALUES('{}')".format(lnk)
 
     cursor.execute(query)
 
@@ -43,7 +43,7 @@ def insert_db(lnk):
 
 def read_db():
 
-   cursor.execute("SELECT * FROM REDLinks")
+   cursor.execute("SELECT * FROM Music")
 
    data = cursor.fetchall()
 
