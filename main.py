@@ -50,8 +50,8 @@ async def main():
                     else:
                        print(filename)
                        await app.send_audio(channel_id, audio=filename,caption=filename)
-                       #os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
-                       #os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
+                       os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
+                       os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
                        write(filename)
                        try:
                          os.remove(filename)
