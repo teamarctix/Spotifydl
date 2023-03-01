@@ -37,16 +37,9 @@ async def main():
                total = r2.json()['tracks']['total']
                now=datetime.now()
                crtda = now.strftime('%m/%d %I:%M:%S %p')
-               # print(os.getcwd())
-               if os.getcwd().endswith("SpidySpotdl"):
-                    os.system("mkdir " + df)
-               else:
-                    os.chdir("../")
-                    os.system("mkdir " + df)
                stats = f'<b>├  Playlist Name: </b>{df}\n'\
                            f'<b>├  Total No Of Songs: </b>{total}\n'\
                            f'<b>╰ Updated Time: </b>{crtda}\n\n'
-               os.chdir(df)
                await app.send_photo(channel_id,photo=img,caption=stats)
                os.system("spotdl "+id[0])
                for filename in os.listdir():
@@ -57,8 +50,8 @@ async def main():
                     else:
                        #print(filename)
                        await app.send_audio(channel_id, audio=filename,caption=filename)
-                       os.system(f'''rclone --config '../rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
-                       os.system(f"""rclone --config '../rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
+                       os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
+                       os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
                        write(filename)
 
 
