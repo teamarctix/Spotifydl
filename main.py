@@ -1,7 +1,6 @@
 from pyrogram import Client, filters
 import requests
 from sub import *
-from db import *
 import os
 from time import time
 import time
@@ -53,14 +52,14 @@ async def main():
                for filename in os.listdir():
                   if filename.endswith(".mp3"):
                     for urls in read():
-                      if urls==filename:
+                      if urls[0]==filename:
                          break
                     else:
                        #print(filename)
                        await app.send_audio(channel_id, audio=filename,caption=filename)
                        os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
                        os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
-                       
+                       write(filename)
 
 
 
