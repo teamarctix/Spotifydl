@@ -23,7 +23,7 @@ jobs:
           wget -qq ${{ secrets.Rclone }} -O rclone.conf
       - name: Downloading links
         run : |
-          wget https://gist.github.com/BlackFoxy616/95fd418794abad8ee4ce97b921fd7a80/raw/songs.csv
+          wget https://gist.github.com/BlackFoxy616/95fd418794abad8ee4ce97b921fd7a80/raw/songs.txt
       - name: Requirements 
         run: |
            pip install -r requirements.txt
@@ -35,5 +35,5 @@ jobs:
         with:
           token: ${{ secrets.TOKEN }}
           gist_id: 95fd418794abad8ee4ce97b921fd7a80
-          file_path: songs.csv
+          file_path: songs.txt
           file_type: text
