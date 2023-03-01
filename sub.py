@@ -38,7 +38,7 @@ def rclone(name,name2):
 
 
 def write(name):
-  with open("songs.csv","a+") as filec:
+  with open("songs.txt","a+") as filec:
            cwrite = csv.writer(filec)
            cwrite.writerow([name])
 
@@ -46,7 +46,7 @@ def write(name):
 
 def read():
    global cread
-   filec = open("songs.csv","r")
+   filec = open("songs.txt","r")
    cread=csv.reader(filec)
    return cread
  
