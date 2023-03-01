@@ -7,6 +7,10 @@ jobs:
   run-sync-service:
     runs-on: ubuntu-latest
     steps:
+      - name: Install RClone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          rclone help
       - name: FFMPEG 
         run: |
           sudo apt-get install ffmpeg 
@@ -15,9 +19,22 @@ jobs:
       - name: Cd Into Repo
         run: |
           cd ${{ github.workspace }}
+      - name: Downloading config file
+        run: |
+          wget -qq ${{ secrets.Rclone }} -O rclone.conf
+      - name: Downloading links
+        run : |
+          wget https://gist.github.com/BlackFoxy616/95fd418794abad8ee4ce97b921fd7a80/raw/songs.csv
       - name: Requirements 
         run: |
            pip install -r requirements.txt
       - name: Running the Script 
         run: |
           python main.py
+      - name: Deploy
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.TOKEN }}
+          gist_id: 95fd418794abad8ee4ce97b921fd7a80
+          file_path: songs.csv
+          file_type: text
