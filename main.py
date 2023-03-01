@@ -53,7 +53,10 @@ async def main():
                        os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
                        os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
                        write(filename)
-
+                       try:
+                         os.remove(filename)
+                       expect:
+                          print("File Moved I Guess")
 
 
 
