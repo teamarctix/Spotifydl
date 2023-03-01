@@ -112,7 +112,7 @@ def pwrite(playlistlink):
 
 def pread():
    global cread
-   filec = open("playlist.csv","r")
+   filec = open("playlist.txt","r")
    cread=csv.reader(filec)
    return cread
 
