@@ -55,7 +55,7 @@ async def main():
                        write(filename)
                        try:
                          os.remove(filename)
-                       expect:
+                       except:
                           print("File Moved I Guess")
 
 
