@@ -24,7 +24,7 @@ app = Client(
 
 
 
-@app.on_message(filters.command("dl"))
+taç@app.on_message(filters.command("dl"))
 async def start_command(client,message):
     chat_id = message.chat.id
     link = message.text
@@ -80,32 +80,6 @@ async def start_command(client,message):
 
 @app.on_callback_query()
 async def answer(client, call):
-          msgid = call.message.id
-          chat = call.message.chat.id
-          print(chat,msgid)
-          await app.edit_message_text(chat,msgid,"Update Started!!!")
-          playlist_id = call.data
-          URL2 = "https://api.spotify.com/v1/playlists/"+ playlist_id +"?access_token=" + token 
-          r2 = requests.get(URL2)
-          img = r2.json()['images'][0]['url']
-          df = r2.json()['name']
-          total = r2.json()['tracks']['total']
-          now=datetime.now()
-          crtda = now.strftime('%m/%d %I:%M:%S %p')
-          if os.getcwd().endswith("Spotdl"):
-             os.system("mkdir " + df)
-          else:
-             os.chdir("../")
-             os.system("mkdir " + df)
-          stats =  f'<b>├  Playlist Name: </b>{df}\n'\
-                        f'<b>├  Total No Of Songs: </b>{total}\n'\
-                        f'<b>╰ Updated Time: </b>{crtda}\n\n'
-          os.chdir(df)
-          await app.send_photo(chat,photo=img,caption=stats)
-          os.system("spotdl https://open.spotify.com/playlist/"+playlist_id)
-          for filename in os.listdir():
-              if filename.endswith(".mp3"):
-                await app.send_audio(chat, audio=filename,caption=filename)
 
 
 
@@ -148,37 +122,6 @@ async def main():
 
 
 
-
-
-
-
-@app.on_message(filters.command("add"))
-async def start_command(client,message):
-    link = message.text[5:]
-    pwrite(link)
-    await message.reply("Added Playlist!")
-    
-
-
-
-@app.on_message(filters.command("list"))
-async def start_command(client,message):
-        cdid= message.chat.id
-        if "playlist.csv" in os.litdir():
-         pylnames =[]
-         for  pyname in pread():
-             pylnames.append([InlineKeyboardButton(pyname[1], callback_data =str(pyname[2]))]) 
-             reply_markup=InlineKeyboardMarkup(pylnames)
-         list = await app.send_message(
-            cdid,"Playlists:",reply_markup=reply_markup)
-         time.sleep(5)
-         msgid =list.id
-         chat = list.chat.id
-         await app.delete_messages(chat,msgid)
-       else:
-          await app.send_message(
-            cdid,"Playlist Can't be Found!!\n\
-                  Try Adding A Playlist\",)
 
 
 
