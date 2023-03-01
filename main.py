@@ -108,10 +108,9 @@ async def answer(client, call):
 
 
 
-
-@app.on_message(filters.command("updateall"))
-async def start_command(client,message):
-             channel_id = message.chat.id
+async def main():
+   async with app:
+             channel_id = -1001861533379
              #await app.send_message(channel_id,"Playlist!")
              for id in pread():
                playlist_id = id[0][34:].split('?')[0]
@@ -123,7 +122,7 @@ async def start_command(client,message):
                now=datetime.now()
                crtda = now.strftime('%m/%d %I:%M:%S %p')
                # print(os.getcwd())
-               if os.getcwd().endswith("Spotdl"):
+               if os.getcwd().endswith("SpidySpotdl"):
                     os.system("mkdir " + df)
                else:
                     os.chdir("../")
@@ -180,4 +179,4 @@ async def start_command(client,message):
 
 
 
-app.run()  # Automatically start() and idle()
+app.run(main())  # Automatically start() and idle()
