@@ -37,16 +37,16 @@ def rclone(name,name2):
 
 
 
-def write(link,name):
-  with open("links.csv","a+") as filec:
+def write(name):
+  with open("songs.csv","a+") as filec:
            cwrite = csv.writer(filec)
-           cwrite.writerow([link,name])
+           cwrite.writerow([name])
 
 
 
 def read():
    global cread
-   filec = open("links.csv","r")
+   filec = open("songs.csv","r")
    cread=csv.reader(filec)
    return cread
  
