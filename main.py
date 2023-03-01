@@ -52,13 +52,15 @@ async def main():
                os.system("spotdl "+id[0])
                for filename in os.listdir():
                   if filename.endswith(".mp3"):
-                    for urls in read_db():
+                    for urls in read():
                       if urls==filename:
                          break
                     else:
                        #print(filename)
                        await app.send_audio(channel_id, audio=filename,caption=filename)
-                       insert_db(filename)
+                       os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
+                       os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
+                       
 
 
 
