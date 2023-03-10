@@ -40,7 +40,7 @@ async def main():
                stats = f'<b>├  Playlist Name: </b>{df}\n'\
                            f'<b>├  Total No Of Songs: </b>{total}\n'\
                            f'<b>╰ Updated Time: </b>{crtda}\n\n'
-               await app.send_photo(channel_id,photo=img,caption=stats)
+               new = 0
                os.system("python -m spotdl "+id[0])
                for filename in os.listdir():
                 for urls in read():
@@ -50,11 +50,14 @@ async def main():
                     break
                 else:
                     if filename.endswith(".mp3"):
+                       if new ==0:
+                        await app.send_photo(channel_id,photo=img,caption=stats)
                        #print(filename)
                        await app.send_audio(channel_id, audio=filename,caption=filename)
                        os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
                        os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
                        write(filename)
+                       new +=1
                        try:
                          os.remove(filename)
                        except:
