@@ -27,7 +27,7 @@ app = Client(
 async def main():
    async with app:
              channel_id = -1001861533379
-             await app.send_message(channel_id,"Playlist!")
+             #await app.send_message(channel_id,"Playlist!")
              for id in pread():
                playlist_id = id[0][34:].split('?')[0]
                URL2 = "https://api.spotify.com/v1/playlists/"+ playlist_id +"?access_token=" + token 
@@ -45,15 +45,15 @@ async def main():
                for filename in os.listdir():
                 for urls in read():
                   if urls[0]==filename:
-                    print(urls[0])
-                    print(filename)
+                    #print(urls[0])
+                    #print(filename)
                     break
                 else:
                     if filename.endswith(".mp3"):
-                       print(filename)
+                       #print(filename)
                        await app.send_audio(channel_id, audio=filename,caption=filename)
-                       #os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
-                       #os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
+                       os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music'  ''')
+                       os.system(f"""rclone --config './rclone.conf' move "Drive:/Music" "TD:/Music" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
                        write(filename)
                        try:
                          os.remove(filename)
