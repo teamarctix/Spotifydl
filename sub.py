@@ -37,10 +37,10 @@ def rclone(name,name2):
 
 
 
-def write(name):
+def write(name,id):
   with open("songs.txt","a+") as filec:
            cwrite = csv.writer(filec)
-           cwrite.writerow([name])
+           cwrite.writerow([name,id])
 
 
 
