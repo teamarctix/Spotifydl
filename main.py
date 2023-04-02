@@ -50,8 +50,8 @@ async def main():
                     break
                 else:
                     if filename.endswith(".mp3"):
-                       if new ==0:
-                        await app.send_photo(channel_id,photo=img,caption=stats)
+                       #if new ==0:
+                        #await app.send_photo(channel_id,photo=img,caption=stats)
                        #print(filename)
                        id = await app.send_audio(channel_id, audio=filename,caption=filename)
                        os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music/{df}'  ''')
