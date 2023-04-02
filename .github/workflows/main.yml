@@ -10,9 +10,10 @@ jobs:
       - name: Install RClone
         run: |
            sudo apt install rclone
-      - name: FFMPEG 
-        run: |
-          sudo apt-get install ffmpeg 
+      - name: Setup yt-dlp
+        uses: AnimMouse/setup-yt-dlp@v1
+        with:
+          with-ffmpeg: true
       - name: Checkout repository code
         uses: actions/checkout@v2
       - name: Cd Into Repo
