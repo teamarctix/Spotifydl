@@ -38,8 +38,8 @@ async def main():
                now=datetime.now()
                crtda = now.strftime('%m/%d %I:%M:%S %p')
                stats = f'<b>├  Playlist Name: </b>{df}\n'\
-                           f'<b>├  Total No Of Songs: </b>{total}\n'\
-                           f'<b>╰ Updated Time: </b>{crtda}\n\n'
+                       f'<b>├  Total No Of Songs: </b>{total}\n'\
+                       f'<b>╰ Updated Time: </b>{crtda}\n\n'
                new = 0
                os.system("python -m spotdl "+id[0])
                for filename in os.listdir():
