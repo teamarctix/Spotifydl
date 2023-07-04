@@ -41,7 +41,7 @@ async def main():
                        f'<b>├  Total No Of Songs: </b>{total}\n'\
                        f'<b>╰ Updated Time: </b>{crtda}\n\n'
                new = 0
-               os.system("python -m spotdl "+id[0])
+               getplay(id[0])
                for filename in os.listdir():
                 for urls in read():
                   if urls[0]==filename:
