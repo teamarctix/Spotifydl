@@ -132,9 +132,10 @@ def getplay(playlistlink):
      while not y:  
       items = r.json()['items']
       for i in range(len(items)):
+       for i in 
          count +=1
          #print(count,r.json()['items'][i]["track"]["external_urls"]["spotify"])
-         os.system("yt-dlp -f 'bestaudio' -x --audio-format mp3 --downloader aria2c --download-archive songs.txt "+ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[1])
+         os.system("spotdl "+r.json()['items'][i]["track"]["external_urls"]["spotify"])
          for name in os.listdir():
            if ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[0] in name:
               #rclone(name,pyname)
