@@ -12,3 +12,4 @@ spotdl
 urllib3
 youtube-search-python
 tgcrypto
+psycopg2
