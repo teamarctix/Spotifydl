@@ -138,6 +138,7 @@ def getplay(playlistlink):
          for name in os.listdir():
            if ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[0] in name:
               #rclone(name,pyname)
+              pass
       else:
          if count == total:
             y = True
