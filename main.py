@@ -54,8 +54,8 @@ async def main():
                         #await app.send_photo(channel_id,photo=img,caption=stats)
                        #print(filename)
                        id = await app.send_audio(channel_id, audio=filename,caption=filename)
-                       os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music/{df}'  ''')
-                       os.system(f"""rclone --config './rclone.conf' move "Drive:/Music/{df}" "TD:/Music/{df}" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
+                       #os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music/{df}'  ''')
+                       #os.system(f"""rclone --config './rclone.conf' move "Drive:/Music/{df}" "TD:/Music/{df}" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
                        write(filename,id.id)
                        new +=1
                        try:
