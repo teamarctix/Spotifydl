@@ -138,9 +138,8 @@ def getplay(playlistlink):
          for name in os.listdir():
            if ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[0] in name:
               #rclone(name,pyname)
-
       else:
-         if count ==total:
+         if count == total:
             y = True
             break
          URL = r.json()['next'] +'&'+ "access_token=" + token
