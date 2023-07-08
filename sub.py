@@ -134,10 +134,10 @@ def getplay(playlistlink):
       for i in range(len(items)):
          count +=1
          #print(count,r.json()['items'][i]["track"]["external_urls"]["spotify"])
-         ytdl(ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[1])
+         os.systen("yt_dlp -f 'bestaudio*[ext=mp3]' --downloader aria2c --download-archive songs.txt "+ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[1])
          for name in os.listdir():
            if ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[0] in name:
-              rclone(name,pyname)
+              #rclone(name,pyname)
 
       else:
          if count ==total:
