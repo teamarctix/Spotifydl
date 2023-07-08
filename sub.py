@@ -3,7 +3,7 @@ import yt_dlp
 import json,csv,os
 import requests
 from refresh import *
-
+from db import *
 
 
 token=retk()
@@ -132,7 +132,8 @@ def getplay(playlistlink):
      while not y:  
       items = r.json()['items']
       for i in range(len(items)):
-       for i in 
+       for name in read_db():
+        if name
          count +=1
          #print(count,r.json()['items'][i]["track"]["external_urls"]["spotify"])
          os.system("spotdl "+r.json()['items'][i]["track"]["external_urls"]["spotify"])
