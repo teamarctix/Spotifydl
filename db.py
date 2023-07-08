@@ -11,8 +11,8 @@ cursor = conn.cursor()
 
 def create_table():
   
-  sql ='''CREATE TABLE Index(
-   ID VARCHAR(255) NOT NULL
+  sql ='''CREATE TABLE Music(
+   NAME VARCHAR(255) NOT NULL
    URL VARCHAR(255) NOT NULL
 )'''
 
@@ -21,17 +21,17 @@ def create_table():
   conn.commit()
 
 
-def insert_db(lnk):
-    query = "INSERT INTO REDLinks (url) VALUES('{}')".format(lnk)
+def insert_db(name,url):
+    query = "INSERT INTO Music (name,url) VALUES('{}','{}')".format(name,url)
     cursor.execute(query)
     conn.commit()
 
 def read_db():
-   cursor.execute("SELECT * FROM REDLinks")
+   cursor.execute("SELECT * FROM Music")
    data = cursor.fetchall()
    return data
 
-def delall_db(name):
+def delall_db(name="Music"):
     cursor.execute(f"DELETE FROM {name}")
     conn.commit()
 
