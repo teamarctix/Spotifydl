@@ -2,8 +2,8 @@ from youtubesearchpython import *
 import yt_dlp
 import json,csv,os
 import requests
+import subprocess
 from refresh import *
-from db import *
 
 
 token=retk()
@@ -20,12 +20,12 @@ def plnm(playlistlink):
 def gettrack(track):
      global token
      URL = "https://api.spotify.com/v1/tracks/" + track + "?access_token=" + token
-     r = requests.get(url = URL) 
+     r = requests.get(url = URL)
      data = r.json()
-     track = data['name']
-     sample= data['preview_url']
+     title  = data['name']
+     artist = [artists["name"] for artists in data["artists"]]
      img = data['album']['images'][0]['url']
-     return track, sample, img 
+     return title,artist,img 
 
 
 
@@ -43,12 +43,18 @@ def write(name,id):
            cwrite.writerow([name,id])
 
 
-
 def read():
-   global cread
-   filec = open("songs.txt","r")
-   cread=csv.reader(filec)
-   return cread
+   try:
+      filec = open("songs.txt","r")
+      cread=csv.reader(filec)
+      links =[link[0] for link in cread]
+   except:
+      links = []
+   return links
+
+
+
+
  
 def ytsq(link):
    tkid=link.split("/")[4].split("?")[0]
@@ -117,38 +123,62 @@ def pread():
    return cread
 
 
+def progress(current, total):
+    print(f"{current * 100 / total:.1f}%")
 
-
-def getplay(playlistlink):
+def getplay(playlistlink,app,channel_id):
+     totalup = 0
      playlist_id = playlistlink[34:].split('?')[0]
      URL = "https://api.spotify.com/v1/playlists/" + playlist_id  + "/tracks?access_token=" + token
      URL2 = "https://api.spotify.com/v1/playlists/"+ playlist_id +"?access_token=" + token  
      r2 = requests.get(URL2)
      pyname = 'Playlist/' + r2.json()['name'] + "'"
-     r = requests.get(url = URL) 
+     r = requests.get(url = URL)
      total = r.json()['total']
      count=0
      y=False
+
      while not y:  
-      items = r.json()['items']
-      for i in range(len(items)):
-       for name in read_db():
-        if name
-         count +=1
-         #print(count,r.json()['items'][i]["track"]["external_urls"]["spotify"])
-         os.system("spotdl "+r.json()['items'][i]["track"]["external_urls"]["spotify"])
-         for name in os.listdir():
-           if ytsq(r.json()['items'][i]["track"]["external_urls"]["spotify"])[0] in name:
-              #rclone(name,pyname)
-              pass
-      else:
-         if count == total:
-            y = True
-            break
-         URL = r.json()['next'] +'&'+ "access_token=" + token
-         r = requests.get(url = URL)
-     return items
+      try:
+            items = r.json()['items']
+            for i in range(len(items)):
+               
+                        details = gettrack(r.json()['items'][i]["track"]["external_urls"]["spotify"].split("/")[-1])
+                        title  = details[0]
+                        file = title +"-"+",".join(details[1])
+                        count +=1
 
 
+                        if not r.json()['items'][i]["track"]["external_urls"]["spotify"] in read():
+                           spotify_url = r.json()['items'][i]["track"]["external_urls"]["spotify"]
+                           command = f"python -m spotdl --headless --threads 10  --format mp3 --archive songs.txt {spotify_url}"
+                           os.system(command)
+                           filenames = [file for file in os.listdir() if file.endswith(".mp3") and title in file]
+                           if len(filenames)>0:
+                                 filename = filenames[0]
+                                 img = str(hash(filename))+".jpg"
+                                 os.system(f'wget -qq {details[2]} -O """{img}""" ')
+                                 id = app.send_audio(channel_id, audio=filename,caption=filename[0:-4],thumb=img, progress=progress)
+                                 print(f'''Downloaded & Uploaded {filename}''')
+                                 totalup +=1
+                                 os.remove(filename)
+                                 os.remove(img)
+                           else:
+                              print(f'''{file} Not Avaliable''')
+                              with open("Missing,txt","a+") as file:
+                                 file.write(file+"\n")
+                        else:
+                           print(f'''{file} Already Exists''')
+            else:
+               if count == total and not r.json()['next']:
+                  y = True
+                  break
+                  
+            URL = r.json()['next'] +'&'+ "access_token=" + token
+            r = requests.get(url = URL)
+      except Exception as e:
+             print("Oppps Something Happened\n",e)
+             continue
 
 
+     return items,totalup
