@@ -27,7 +27,7 @@ app = Client(
 
 def main():
    with app:
-                crtda = datetime.now(pytz.timezone("Asia/Kolkata")).strftime("%m/%d %H:%M:%S%p")
+                crtda = datetime.now(pytz.timezone("Asia/Kolkata")).strftime("%m/%d %H:%M %p")
                 channel_id = -1002143076171
                 txt = f'Status : </b>Uploading\n'\
                     f'Updated Time: </b>{crtda}\n\n'
