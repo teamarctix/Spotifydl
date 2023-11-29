@@ -43,11 +43,9 @@ def main():
                       df = r2.json()['name']
                       total = r2.json()['tracks']['total']
 
-                      items,total = getplay(id[0],app,channel_id)
-                print(total)
+                      items,up= getplay(id[0],app,channel_id)
                 txt = f'Status : </b>Upload Completed\n'\
-                      f'Total Songs : </b{total}\n'\
-                      f'Updated Time: </b>{crtda}\n\n'
+                      f'Total Songs : </b>{up}\n\n'
                 app.edit_message_text(channel_id,2,txt)
                 exit()
                   
