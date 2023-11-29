@@ -165,8 +165,8 @@ def getplay(playlistlink,app,channel_id):
                                  os.remove(img)
                            else:
                               print(f'''{file} Not Avaliable''')
-                              with open("Missing,txt","a+") as file:
-                                 file.write(file+"\n")
+                              with open("Missing,txt","a+") as f:
+                                 f.write(file+"\n")
                         else:
                            print(f'''{file} Already Exists''')
             else:
