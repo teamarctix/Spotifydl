@@ -4,8 +4,9 @@ from sub import *
 import os
 from time import time
 import time
-from datetime import datetime
-from pytz import timezone
+from datetime import datetime, timedelta
+from pytz import *
+import pytz
 
 from pyrogram.types import (ReplyKeyboardMarkup, InlineKeyboardMarkup,
                             InlineKeyboardButton)
@@ -13,10 +14,10 @@ from pyrogram.types import (ReplyKeyboardMarkup, InlineKeyboardMarkup,
 
 api_id = 3702208
 api_hash = "3ee1acb7c7622166cf06bb38a19698a9"
-bot_token = "6751694050:AAEPfuYWXDq5OL_jQiqzacooOtcsC9AxA8U0"
+bot_token = "6751694050:AAEPfuYWXDq5OL_jQiqzacooOtcsC9AxA8U"
 
 app = Client(
-    "my_bot",
+    "Music_Bot",
     api_id=api_id, api_hash=api_hash,
     bot_token=bot_token
 )
@@ -24,47 +25,32 @@ app = Client(
 
 
 
-async def main():
-   async with app:
-             channel_id = -1001861533379
-             #await app.send_message(channel_id,"Playlist!")
-             for id in pread():
-               playlist_id = id[0][34:].split('?')[0]
-               URL2 = "https://api.spotify.com/v1/playlists/"+ playlist_id +"?access_token=" + token 
-               r2 = requests.get(URL2)
-               img = r2.json()['images'][0]['url']
-               df = r2.json()['name']
-               total = r2.json()['tracks']['total']
-               now=datetime.now()
-               crtda = now.strftime('%m/%d %I:%M:%S %p')
-               stats = f'<b>├  Playlist Name: </b>{df}\n'\
-                       f'<b>├  Total No Of Songs: </b>{total}\n'\
-                       f'<b>╰ Updated Time: </b>{crtda}\n\n'
-               new = 0
-               getplay(id[0])
-               for filename in os.listdir():
-                for urls in read():
-                  if urls[0]==filename:
-                    #print(urls[0])
-                    #print(filename)
-                    break
-                else:
-                    if filename.endswith(".mp3"):
-                       #if new ==0:
-                        #await app.send_photo(channel_id,photo=img,caption=stats)
-                       #print(filename)
-                       id = await app.send_audio(channel_id, audio=filename,caption=filename)
-                       #os.system(f'''rclone --config './rclone.conf' move  """{filename}"""  'Drive:/Music/{df}'  ''')
-                       #os.system(f"""rclone --config './rclone.conf' move "Drive:/Music/{df}" "TD:/Music/{df}" -vP --delete-empty-src-dirs --drive-server-side-across-configs=true """)
-                       write(filename,id.id)
-                       new +=1
-                       try:
-                         os.remove(filename)
-                       except:
-                          print("File Moved I Guess")
+def main():
+   with app:
+                crtda = datetime.now(pytz.timezone("Asia/Kolkata")).strftime("%m/%d %H:%M:%S%p")
+                channel_id = -1002143076171
+                txt = f'Status : </b>Uploading\n'\
+                    f'Updated Time: </b>{crtda}\n\n'
+                app.edit_message_text(channel_id,2,txt)
+                playlists = pread()
+                for id in playlists:
 
+                      playlist_id = id[0][34:].split('?')[0]
+                      URL2 = "https://api.spotify.com/v1/playlists/"+ playlist_id +"?access_token=" + token 
+                      r2 = requests.get(URL2)
 
+                      img = r2.json()['images'][0]['url']
+                      df = r2.json()['name']
+                      total = r2.json()['tracks']['total']
 
+                      items,total = getplay(id[0],app,channel_id)
+                print(total)
+                txt = f'Status : </b>Upload Completed\n'\
+                      f'Total Songs : </b{total}\n'\
+                      f'Updated Time: </b>{crtda}\n\n'
+                app.edit_message_text(channel_id,2,txt)
+                exit()
+                  
 
 
 
