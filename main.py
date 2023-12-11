@@ -18,9 +18,9 @@ from pyrogram.types import (ReplyKeyboardMarkup, InlineKeyboardMarkup,
 
 uploads ={"up":0}
 
-api_id = 3702208
-api_hash = "3ee1acb7c7622166cf06bb38a19698a9"
-bot_token = "6751694050:AAEPfuYWXDq5OL_jQiqzacooOtcsC9AxA8U"
+api_id = 11405252
+api_hash = "b1a1fc3dc52ccc91781f33522255a880"
+bot_token = "6593397412:AAFmJ8Hj9jnZuvLs_rLcu63bQwCp0EV829w"
 
 app = Client(
     "Music_Bot",
@@ -60,7 +60,7 @@ def pldl(app,playlist,channel_id):
 def main():
    with app:
                 crtda = datetime.now(pytz.timezone("Asia/Kolkata")).strftime("%m/%d %H:%M:%S%p")
-                channel_id = -1002094312103
+                channel_id = -1002034630043
                 txt = f'Status : </b>Uploading\n'\
                       f'Updated Time: </b>{crtda}\n\n'
                 start = app.send_message(channel_id,txt)
