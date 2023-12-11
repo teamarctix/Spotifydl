@@ -24,7 +24,7 @@ jobs:
           wget -qq ${{ secrets.Rclone }} -O rclone.conf
       - name: Downloading links
         run : |
-          wget -qq https://gist.github.com/BlackFoxy616/95fd418794abad8ee4ce97b921fd7a80/raw/songs.txt && wget https://gist.github.com/BlackFoxy616/3999f19aff7728492349140bd5c1448a/raw/playlist.txt
+          wget -qq https://gist.github.com/BlackFoxy616/95fd418794abad8ee4ce97b921fd7a80/raw/songs.txt && wget https://gist.github.com/teamarctix/582b1a49c8c62e2533cfdea335a3dcfa/raw/playlist.txt
       - name: Requirements 
         run: |
            pip install -r requirements.txt
