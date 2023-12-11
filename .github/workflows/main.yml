@@ -1,8 +1,8 @@
 name: Spotify
 on:
   workflow_dispatch:
-  schedule:
-     - cron:  '30 6 * * *'
+ # schedule:
+    # - cron:  '30 6 * * *'
 jobs:
   run-sync-service:
     runs-on: ubuntu-latest
